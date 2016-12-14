@@ -1,0 +1,3 @@
+/home/denis/Escritorio/workspaces/c/Debug/CMakeFiles/edit_cache.dir
+/home/denis/Escritorio/workspaces/c/Debug/CMakeFiles/rebuild_cache.dir
+/home/denis/Escritorio/workspaces/c/Debug/CMakeFiles/benchmarks.dir

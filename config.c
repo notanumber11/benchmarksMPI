@@ -15,22 +15,25 @@ void printBytesAndTymes(){
     }
 }
 
-void initBytesAndTimes(){
-    bytes[0] = 0;
-    for(int i = 1; i < SIZE ; i++){
-        bytes[i] = pow(2,i-1);
-    }
 
-    times[0] = 1000;
-    for(int i = 1; i < SIZE ; i++){
-        times[i] = getTimes(bytes[i]);
-    }
-}
 
 int getTimes(int bytes){
     int value = fmin(MESSAGES_PER_SAMPLE,OVERALL/bytes);
     int times = fmax(1,value);
     return times;
+}
+
+void initBytesAndTimes(){
+    bytes[0] = 0;
+    int i = 1;
+    for(i = 1; i < SIZE ; i++){
+        bytes[i] = pow(2,i-1);
+    }
+
+    times[0] = 1000;
+    for(i = 1; i < SIZE ; i++){
+        times[i] = getTimes(bytes[i]);
+    }
 }
 
 double normalizedTime(){
@@ -46,7 +49,8 @@ double normalizedTime(){
         double finish = 0;
 
         srand(time(NULL));
-        for(int i = 0; i<1000; i++){
+        int i = 0;
+        for(i = 0; i<1000; i++){
 
             r = rand();
             vector1[i]= r;
@@ -55,7 +59,7 @@ double normalizedTime(){
 
         }
         start = MPI_Wtime();
-        for(int i =0;i<1000;i++){
+        for(i =0;i<1000;i++){
             result =  result  + vector1[i] * vector2[i];
         }
         finish = MPI_Wtime();

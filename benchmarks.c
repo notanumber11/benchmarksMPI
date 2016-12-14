@@ -10,7 +10,8 @@
 #include "config.h"
 
 void pingPong(int times, int bytes){
-    for(int i=0; i <= WARM_UP;i++){
+    int k = 0;
+    for(k=0; k <= WARM_UP;k++){
         //Init MPI
         int world_rank;
         MPI_Comm_rank(MPI_COMM_WORLD, &world_rank);
@@ -59,7 +60,7 @@ void pingPong(int times, int bytes){
         // Print results
         MPI_Barrier(MPI_COMM_WORLD);
 
-        if(world_rank == 0 && i==WARM_UP){
+        if(world_rank == 0 && k==WARM_UP){
             double finalTime = timeGlobal/2/world_size/times*pow(10,6);
             printf(" %6d ; %6d ; ", bytes,times);
             printf(" %e ; %e; \n", finalTime, bytes/(THROUGHPUTCONSTANT*finalTime));
@@ -70,7 +71,8 @@ void pingPong(int times, int bytes){
 }
 
 void sendReceive(int times,int bytes){
-    for(int i=0; i <= WARM_UP;i++) {
+    int k = 0;
+    for(k=0; k <= WARM_UP;k++) {
         //Init MPI
         int world_rank;
         MPI_Comm_rank(MPI_COMM_WORLD, &world_rank);
@@ -107,7 +109,8 @@ void sendReceive(int times,int bytes){
         MPI_Barrier(MPI_COMM_WORLD);
         //Start timer
         time = MPI_Wtime();
-        for (int i = 0; i < times; i++) {
+        int i = 0;
+        for (i = 0; i < times; i++) {
             // Make the algorithm
             MPI_Sendrecv(packetSend, bytes, MPI_BYTE, destination, 123, packetReceive, bytes, MPI_BYTE, source, 123,
                          MPI_COMM_WORLD, MPI_STATUS_IGNORE);
@@ -118,7 +121,7 @@ void sendReceive(int times,int bytes){
         MPI_Reduce(&time, &timeGlobal, 1, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
         // Print results
         MPI_Barrier(MPI_COMM_WORLD);
-        if (world_rank == 0 && i == WARM_UP) {
+        if (world_rank == 0 && k == WARM_UP) {
             double finalTime = timeGlobal / world_size / times * pow(10, 6);
             printf(" %6d ; %6d ; ", bytes, times);
             printf(" %e ; %e; \n", finalTime, nmsg * bytes / (THROUGHPUTCONSTANT * finalTime));
@@ -129,7 +132,8 @@ void sendReceive(int times,int bytes){
 }
 
 void broadcast(int times,int bytes){
-    for(int i=0; i <= WARM_UP;i++) {
+    int k = 0;
+    for(k=0; k <= WARM_UP;k++) {
         //Init MPI
         int world_rank;
         MPI_Comm_rank(MPI_COMM_WORLD, &world_rank);
@@ -151,7 +155,8 @@ void broadcast(int times,int bytes){
         MPI_Barrier(MPI_COMM_WORLD);
         //Start timer
         time = MPI_Wtime();
-        for (int i = 0; i < times; i++) {
+        int i = 0;
+        for (i = 0; i < times; i++) {
             root = i % world_size;
             MPI_Bcast(packetSend, bytes, MPI_BYTE, root, MPI_COMM_WORLD);
         }
@@ -161,7 +166,7 @@ void broadcast(int times,int bytes){
         MPI_Reduce(&time, &timeGlobal, 1, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
         // Print results
         MPI_Barrier(MPI_COMM_WORLD);
-        if (world_rank == 0 && i == WARM_UP) {
+        if (world_rank == 0 && k == WARM_UP) {
             double finalTime = timeGlobal / times / world_size * pow(10, 6);
             printf(" %6d ; %6d ; ", bytes, times);
             printf(" %e ; NP ; \n", finalTime);
@@ -171,7 +176,8 @@ void broadcast(int times,int bytes){
 }
 
 void scater(int times,int bytes){
-    for(int i=0; i <= WARM_UP;i++) {
+    int k = 0;
+    for(k=0; k <= WARM_UP;k++) {
         //Init MPI
         int world_rank;
         MPI_Comm_rank(MPI_COMM_WORLD, &world_rank);
@@ -195,7 +201,8 @@ void scater(int times,int bytes){
         MPI_Barrier(MPI_COMM_WORLD);
         //Start timer
         time = MPI_Wtime();
-        for (int i = 0; i < times; i++) {
+        int i = 0;
+        for (i = 0; i < times; i++) {
             destination = i % world_size;
             MPI_Scatter(packetSend, bytes, MPI_BYTE, packetReceive, bytes, MPI_BYTE, destination, MPI_COMM_WORLD);
         }
@@ -205,7 +212,7 @@ void scater(int times,int bytes){
         MPI_Reduce(&time, &timeGlobal, 1, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
         // Print results
         MPI_Barrier(MPI_COMM_WORLD);
-        if (world_rank == 0 && WARM_UP == i) {
+        if (world_rank == 0 && WARM_UP == k) {
             double finalTime = timeGlobal / times / world_size * pow(10, 6);
             printf(" %6d ; %6d ; ", bytes, times);
             printf(" %e ; NP ; \n", finalTime);
@@ -216,7 +223,8 @@ void scater(int times,int bytes){
 }
 
 void gather(int times,int bytes){
-    for(int i=0; i <= WARM_UP;i++) {
+    int k = 0;
+    for(k=0; k <= WARM_UP;k++) {
         //Init MPI
         int world_rank;
         MPI_Comm_rank(MPI_COMM_WORLD, &world_rank);
@@ -240,7 +248,8 @@ void gather(int times,int bytes){
         MPI_Barrier(MPI_COMM_WORLD);
         //Start timer
         time = MPI_Wtime();
-        for (int i = 0; i < times; i++) {
+        int i = 0;
+        for (i = 0; i < times; i++) {
             destination = i % world_size;
             MPI_Gather(packetSend, bytes, MPI_BYTE, packetReceive, bytes, MPI_BYTE, destination, MPI_COMM_WORLD);
         }
@@ -250,7 +259,7 @@ void gather(int times,int bytes){
         MPI_Reduce(&time, &timeGlobal, 1, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
         // Print results
         MPI_Barrier(MPI_COMM_WORLD);
-        if (world_rank == 0 && WARM_UP == i) {
+        if (world_rank == 0 && WARM_UP == k) {
             double finalTime = timeGlobal / world_size / times * pow(10, 6);
             printf(" %6d ; %6d ; ", bytes, times);
             printf(" %e ; NP ; \n", finalTime);
@@ -260,7 +269,8 @@ void gather(int times,int bytes){
 }
 
 void reduce(int times,int bytes){
-    for(int i=0; i <= WARM_UP;i++) {
+    int k = 0;
+    for(k=0; k <= WARM_UP;k++) {
         //Init MPI
         int world_rank;
         MPI_Comm_rank(MPI_COMM_WORLD, &world_rank);
@@ -271,8 +281,8 @@ void reduce(int times,int bytes){
         int count = bytes / sizeof(MPI_FLOAT);
         float *packetSend = malloc(sizeof(MPI_FLOAT) * count);
         float *packetReceive = malloc(sizeof(MPI_FLOAT) * count);
-
-        for (int j = 0; j < count; j++){
+        int j = 0;
+        for (j = 0; j < count; j++){
             packetSend[j] = ((float) rand() / (float) (RAND_MAX / rand()));
         }
 
@@ -287,7 +297,8 @@ void reduce(int times,int bytes){
         MPI_Barrier(MPI_COMM_WORLD);
         //Start timer
         time = MPI_Wtime();
-        for (int i = 0; i < times; i++) {
+        int i = 0;
+        for (i = 0; i < times; i++) {
             root = i % world_size;
             MPI_Reduce(packetSend, packetReceive, count, MPI_FLOAT, MPI_SUM, root, MPI_COMM_WORLD);
         }
@@ -297,7 +308,7 @@ void reduce(int times,int bytes){
         MPI_Reduce(&time, &timeGlobal, 1, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
         // Print results
         MPI_Barrier(MPI_COMM_WORLD);
-        if (world_rank == 0 && i == WARM_UP) {
+        if (world_rank == 0 && k == WARM_UP) {
             double finalTime = timeGlobal / world_size / times * pow(10, 6);
             printf(" %6d ; %6d ; ", bytes, times);
             printf(" %e ; NP ; \n", finalTime);
@@ -308,7 +319,8 @@ void reduce(int times,int bytes){
 }
 
 void allToAll(int times,int bytes){
-    for(int i=0; i <= WARM_UP;i++) {
+    int k = 0;
+    for(k=0; k <= WARM_UP;k++) {
         //Init MPI
         int world_rank;
         MPI_Comm_rank(MPI_COMM_WORLD, &world_rank);
@@ -329,7 +341,8 @@ void allToAll(int times,int bytes){
         MPI_Barrier(MPI_COMM_WORLD);
         //Start timer
         time = MPI_Wtime();
-        for (int i = 0; i < times; i++) {
+        int i = 0;
+        for (i = 0; i < times; i++) {
             MPI_Alltoall(packetSend, bytes, MPI_BYTE, packetReceive, bytes, MPI_BYTE, MPI_COMM_WORLD);
         }
         // End timer
@@ -338,7 +351,7 @@ void allToAll(int times,int bytes){
         MPI_Reduce(&time, &timeGlobal, 1, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
         // Print results
         MPI_Barrier(MPI_COMM_WORLD);
-        if (world_rank == 0 && i == WARM_UP) {
+        if (world_rank == 0 && k == WARM_UP) {
             double finalTime = timeGlobal / times / world_size * pow(10, 6);
             printf(" %6d ; %6d ; ", bytes, times);
             printf(" %e ;  NP ; \n", finalTime);
@@ -349,7 +362,8 @@ void allToAll(int times,int bytes){
 }
 
 void barrier(int times, int bytes){
-    for(int i=0; i <= WARM_UP;i++) {
+    int k = 0;
+    for(k=0; k <= WARM_UP;k++) {
         //Init MPI
         int world_rank;
         MPI_Comm_rank(MPI_COMM_WORLD, &world_rank);
@@ -363,6 +377,7 @@ void barrier(int times, int bytes){
         MPI_Barrier(MPI_COMM_WORLD);
         //Start timer
         double start = MPI_Wtime();
+        int i = 0;
         for (int i = 0; i < times; i++) {
             MPI_Barrier(MPI_COMM_WORLD);
         }
@@ -370,7 +385,7 @@ void barrier(int times, int bytes){
         timeGlobal = (MPI_Wtime() - start);
         // Print results
         MPI_Barrier(MPI_COMM_WORLD);
-        if (world_rank == 0 && i == WARM_UP) {
+        if (world_rank == 0 && k == WARM_UP) {
             double finalTime = timeGlobal / times * pow(10, 6);
             printf(" %6d ; %6d ; ", bytes, times);
             printf(" %e ; NP \n", finalTime);

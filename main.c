@@ -17,6 +17,22 @@
 #define barrierFlag     1
 
 void pingPongMain(int world_rank, int world_size);
+
+void sendReceiveMain(int world_rank, int world_size);
+
+void broadcastMain(int world_rank, int world_size);
+
+void ScatterMain(int world_rank, int world_size);
+
+void gatherMain(int world_rank, int world_size);
+
+void reduceMain(int world_rank, int world_size);
+
+void allToAllMain(int world_rank, int world_size);
+
+void barrierMain(int world_rank,int world_size);
+
+
 void printHeader();
 
 
@@ -37,7 +53,6 @@ int main (int argc, char** argv) {
     }
     initBytesAndTimes();
     MPI_Barrier(MPI_COMM_WORLD);
-
 
     if(pingPoingFlag){
         pingPongMain(world_rank,world_size);
@@ -74,7 +89,8 @@ void pingPongMain(int world_rank,int world_size) {
             printf("\n\nPingPong; Nº Process; %d ;\n\n",world_size);
             printHeader();
         }
-        for(int i = 0; i < SIZE ; i++){
+        int i;
+        for(i = 0; i < SIZE ; i++){
             pingPong(times[i],bytes[i]);
         }
     }
@@ -86,7 +102,8 @@ void sendReceiveMain(int world_rank, int world_size){
             printf("\n\nSendReceive; Nº Process; %d ;\n\n",world_size);
             printHeader();
         }
-        for(int i = 0; i < SIZE ; i++){
+        int i;
+        for(i = 0; i < SIZE ; i++){
             sendReceive(times[i],bytes[i]);
         }
     }
@@ -97,7 +114,8 @@ void broadcastMain(int world_rank, int world_size){
         printf("\n\nBroadcast; Nº Process; %d ;\n\n",world_size);
         printHeader();
     }
-    for(int i = 0; i < SIZE ; i++){
+    int i;
+    for(i = 0; i < SIZE ; i++){
         broadcast(times[i],bytes[i]);
     }
 }
@@ -107,7 +125,8 @@ void ScatterMain(int world_rank, int world_size){
         printf("\n\nScater; Nº Process; %d ;\n\n",world_size);
         printHeader();
     }
-    for(int i = 0; i < SIZE ; i++){
+    int i;
+    for(i = 0; i < SIZE ; i++){
         scater(times[i],bytes[i]);
     }
 
@@ -118,7 +137,8 @@ void gatherMain(int world_rank, int world_size){
         printf("\n\nGather; Nº Process; %d ;\n\n",world_size);
         printHeader();
     }
-    for(int i = 0; i < SIZE ; i++){
+    int i;
+    for(i = 0; i < SIZE ; i++){
         gather(times[i],bytes[i]);
     }
 
@@ -129,7 +149,8 @@ void reduceMain(int world_rank, int world_size){
         printf("\n\nReduce; Nº Process; %d ;\n\n",world_size);
         printHeader();
     }
-    for(int i = 0; i < SIZE ; i++){
+    int i;
+    for(i = 0; i < SIZE ; i++){
         reduce(times[i],bytes[i]);
     }
 
@@ -140,7 +161,8 @@ void allToAllMain(int world_rank, int world_size){
         printf("\n\nAllToAll; Nº Process; %d ;\n\n",world_size);
         printHeader();
     }
-    for(int i = 0; i < SIZE ; i++){
+    int i;
+    for(i = 0; i < SIZE ; i++){
         allToAll(times[i],bytes[i]);
     }
 
@@ -151,7 +173,8 @@ void barrierMain(int world_rank,int world_size){
         printf("\n\nBarrier; Nº Process; %d ;\n\n",world_size);
         printHeader();
     }
-    for(int i = 0; i < SIZE ; i++){
+    int i;
+    for(i = 0; i < SIZE ; i++){
         barrier(times[i],bytes[i]);
     }
 
