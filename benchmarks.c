@@ -20,6 +20,7 @@ void pingPong(int times, int bytes){
 
         if(world_rank==0 && world_size!=2){
             printf("Ping pong should be executed with only 2 processes\n");
+            return;
         }
         //Init content
         char *packet;

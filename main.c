@@ -8,13 +8,13 @@
 //********************************************************************************************************************//
 
 #define pingPoingFlag   1
-#define sendReceiveFlag 0
-#define broadcastFlag   0
-#define scaterFlag      0
-#define gatherFlag      0
-#define reduceFlag      0
-#define allToAllFlag    0
-#define barrierFlag     0
+#define sendReceiveFlag 1
+#define broadcastFlag   1
+#define scaterFlag      1
+#define gatherFlag      1
+#define reduceFlag      1
+#define allToAllFlag    1
+#define barrierFlag     1
 
 void pingPongMain(int world_rank, int world_size);
 void printHeader();
@@ -81,12 +81,14 @@ void pingPongMain(int world_rank,int world_size) {
 }
 
 void sendReceiveMain(int world_rank, int world_size){
-    if(world_rank==0){
-        printf("\n\nSendReceive; Nº Process; %d ;\n\n",world_size);
-        printHeader();
-    }
-    for(int i = 0; i < SIZE ; i++){
-        sendReceive(times[i],bytes[i]);
+    if(world_size == 2){
+        if(world_rank==0){
+            printf("\n\nSendReceive; Nº Process; %d ;\n\n",world_size);
+            printHeader();
+        }
+        for(int i = 0; i < SIZE ; i++){
+            sendReceive(times[i],bytes[i]);
+        }
     }
 }
 
