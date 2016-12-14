@@ -10,7 +10,8 @@
 
 void printBytesAndTymes(){
     printf(" Bytes --- Times \n");
-    for(int i = 0; i < SIZE ; i++){
+    int i = 0;
+    for(i = 0; i < SIZE ; i++){
         printf("%d   ---   %d \n", bytes[i],times[i]);
     }
 }

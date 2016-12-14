@@ -378,7 +378,7 @@ void barrier(int times, int bytes){
         //Start timer
         double start = MPI_Wtime();
         int i = 0;
-        for (int i = 0; i < times; i++) {
+        for (i = 0; i < times; i++) {
             MPI_Barrier(MPI_COMM_WORLD);
         }
         // End timer
