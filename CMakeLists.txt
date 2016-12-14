@@ -8,5 +8,7 @@ SET(CMAKE_C_COMPILER mpicc)
 SET(CMAKE_CXX_COMPILER mpicxx)
 
 
-set(SOURCE_FILES main.c config.c config.h)
-add_executable(benchmarks ${SOURCE_FILES} config.c)
+set(SOURCE_FILES main.c config.c config.h benchmarks.c benchmarks.h)
+add_executable(benchmarks ${SOURCE_FILES} config.c benchmarks.c benchmarks.h)
+
+target_link_libraries(benchmarks m)

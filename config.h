@@ -4,13 +4,19 @@
 
 #ifndef BENCHMARKS_CONFIG_H
 #define BENCHMARKS_CONFIG_H
-#include <mpi.h>
-#include <time.h>
-#include <stdlib.h>
-#include <stdio.h>
+
+#include <math.h>
+
+#define SIZE 24
+#define MESSAGES_PER_SAMPLE 1000
+#define OVERALL 41943040
+#define THROUGHPUTCONSTANT 1.048576
+#define WARM_UP 0
+
+int times[SIZE];
+int bytes[SIZE];
 
 double normalizedTime();
-
-void pingPong(int times, int bytes, int world_rank);
+void initBytesAndTimes();
 
 #endif //BENCHMARKS_CONFIG_H
